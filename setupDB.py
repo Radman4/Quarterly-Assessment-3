@@ -35,4 +35,14 @@ cursor.execute('''INSERT INTO QuizBowlDB
                        (Question, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?);''' ,
                         ("5.) True or False: The unsystematic risk component of the total portfolio risk can be reduced by adding negatively correlated stocks to the portfolio.",
                          "A. True","B. False","C. Null","D. Null", "A"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Question, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?);''' ,
+                        ("6.) Which type of Normal Form is the first to exclude partial dependencies?",
+                         "A. 1NF","B. 4NF","C. 3NF","D.2NF", "D"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Question, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?);''' ,
+                        ("7.) WestAir has 10 planes and 5 pilots. Each pilot can fly one or more planes.Each plane can only fly with one pilot. what type of relationship is this?",
+                         "A. One to Many","B. Many to None","C. One & only One","D. Many to Many", "A"))
 conn.commit()
