@@ -4,7 +4,8 @@ import sqlite3
 
 class QuizStart:
     def __init__ (self, master):
-
+        self.master = master
+        self.master.title("Quiz Bowl")
         frame1 = ttk.Frame(master, height = 200, width=300)
         frame1.pack()
         #Label for the question
@@ -34,5 +35,5 @@ class QuizStart:
         self.answerD.grid(column= 1, row = 4)
         #button to go to the next question
         self.btn1 = ttk.Button(frame1, text="Next Question")
-        self.btn1.config(command=self.method1)
+        self.btn1.config(command=self.nextQuestion)
         self.btn1.grid()
