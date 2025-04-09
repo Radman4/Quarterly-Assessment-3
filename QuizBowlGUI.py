@@ -29,49 +29,44 @@ class LoginScreen:
         #button to continue to quiz bowl
         self.btn2 = ttk.Button(loginFrame, text="Continue to Quiz Bowl", command=self.continueQuiz)
         self.btn2.grid(column=1, row=2)
+        
     def checkLogin(self):
         if self.username.get() == "CornGuy" and self.password.get() == "f40355":
             messagebox.showinfo("Login", "Login Successful!")
             #opens the admin screen
-            app = AdminScreen(root)
-            app.mainloop()
+            root.withdraw()
+            admin_window = Toplevel(root)
+            admin_window.title("Admin Screen")
+            AdminScreen(admin_window)
+
         else:
             messagebox.showerror("Login", "Login Failed!")
     def continueQuiz(self):
         #opens the quiz screen
-        app = quizStart(root)
-        app.mainloop()
+        root.withdraw()
+        quiz_window = Toplevel(root)
+        quiz_window.title("Quiz Bowl")
+        quizStart(quiz_window)
 class AdminScreen:
-    def __init__(self):
+    def __init__(self, master):
         #frame for the admin screen
         self.adminFrame = ttk.Frame(self, height=200, width=300)
         self.adminFrame.pack()
-        #add a question to the database
-        self.label1 = ttk.Label(self.adminFrame, text="Question:")
-        self.label1.grid(column=0, row=0)
-        #entry for the question
-        self.question = ttk.Entry(self.adminFrame)
-        self.question.grid(column=1, row=0)
-        #entry for option A
-        self.label2 = ttk.Label(self.adminFrame, text="Option A:")
+        #entry for the category
+        self.label2 = ttk.Label(self.adminFrame, text="Category:")
         self.label2.grid(column=0, row=1)
         self.optionA = ttk.Entry(self.adminFrame)
         self.optionA.grid(column=1, row=1)
-        #entry for option B
-        self.label3 = ttk.Label(self.adminFrame, text="Option B:")
+        #add a question to the database
+        self.label1 = ttk.Label(self.adminFrame, text="Question:")
+        self.label1.grid(column=0, row=0)
+        self.question = ttk.Entry(self.adminFrame)
+        self.question.grid(column=1, row=0)
+        #entry for the options
+        self.label3 = ttk.Label(self.adminFrame, text="Options")
         self.label3.grid(column=0, row=2)
         self.optionB = ttk.Entry(self.adminFrame)
         self.optionB.grid(column=1, row=2)
-        #entry for option C
-        self.label4 = ttk.Label(self.adminFrame, text="Option C:")
-        self.label4.grid(column=0, row=3)
-        self.optionC = ttk.Entry(self.adminFrame)
-        self.optionC.grid(column=1, row=3)
-        #entry for option D
-        self.label5 = ttk.Label(self.adminFrame, text="Option D:")
-        self.label5.grid(column=0, row=4)
-        self.optionD = ttk.Entry(self.adminFrame)
-        self.optionD.grid(column=1, row=4)
         #entry for the answer
         self.label6 = ttk.Label(self.adminFrame, text="Answer:")
         self.label6.grid(column=0, row=5)
@@ -94,9 +89,9 @@ class AdminScreen:
         conn.commit()
         messagebox.showinfo("Submit", "Question Submitted!")
 class quizStart:
-    def __init__ (self):
-        self.title("Quiz Bowl")
-        self.geometry("300x200")
+    def __init__ (self, master):
+        self.master = master
+        self.master.geometry("300x200")
         #begins quiz questions at 0
         self.quizNum = 0
         #number of correct answers
