@@ -55,8 +55,8 @@ class AdminScreen:
         #entry for the category
         self.label2 = ttk.Label(self.adminFrame, text="Category:")
         self.label2.grid(column=0, row=1)
-        self.optionA = ttk.Entry(self.adminFrame)
-        self.optionA.grid(column=1, row=1)
+        self.category = ttk.Entry(self.adminFrame)
+        self.category.grid(column=1, row=1)
         #add a question to the database
         self.label1 = ttk.Label(self.adminFrame, text="Question:")
         self.label1.grid(column=0, row=0)
@@ -65,8 +65,8 @@ class AdminScreen:
         #entry for the options
         self.label3 = ttk.Label(self.adminFrame, text="Options")
         self.label3.grid(column=0, row=2)
-        self.optionB = ttk.Entry(self.adminFrame)
-        self.optionB.grid(column=1, row=2)
+        self.options = ttk.Entry(self.adminFrame)
+        self.options.grid(column=1, row=2)
         #entry for the answer
         self.label6 = ttk.Label(self.adminFrame, text="Answer:")
         self.label6.grid(column=0, row=5)
@@ -84,8 +84,8 @@ class AdminScreen:
         cursor = conn.cursor()
         #insert the question into the database
         cursor.execute('''INSERT INTO QuizBowlDB 
-                        (Question, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?);''' ,
-                         (self.question.get(), self.optionA.get(), self.optionB.get(), self.optionC.get(), self.optionD.get(), self.answer.get()))
+                        (Category, Question, Options, Answer) VALUES (?,?,?,?);''' ,
+                         (self.category.get(),self.question.get(), self.options.get(), self.answer.get()))
         conn.commit()
         messagebox.showinfo("Submit", "Question Submitted!")
 class quizStart:
@@ -104,10 +104,28 @@ class quizStart:
         self.quizOptions()
         #integer for the question choice
         self.questionCheck = ttk.IntVar()
+        self.questions = []
 
-        
+    def radioButtons(self):
+        button = []
+        for b in range(4):
+            button.append(ttk.Radiobutton(self.master, text="", variable=self.questionCheck, value=b))
+            button[b].grid(row=3, column=b)
+        return button
+
+    def quizOptions(self):
+        #connect to the database
+        conn = sqlite3.connect('QuizBowlDB.db')
+        cursor = conn.cursor()
+        #get the question from the database
+        cursor.execute('''SELECT Category, Question, Options, Answer FROM QuizBowlDB''',)
+        conn.commit()
+
+
+
+   
     #check to see if question is correct
-    def answer(self, quizNum):
+    def questionCheck(self, quizNum):
         if self.questionCheck.get() == [quizNum]:
             return True
     
@@ -128,13 +146,31 @@ class quizStart:
             self.quizQuestion()
             self.quizOptions()
 
+    def quitQuiz(self):
+        #closes the quiz window
+        self.master.destroy()
+        root.deiconify()
+    
+    def quizQuestion(self):
+        #displays the question
+        self.questionLabel = ttk.Label(self.master, text=questions[self.quizNum][1])
+        self.questionLabel.grid(row=1, column=0, columnspan=4)
+        #displays the options
+        for i in range(4):
+            self.options[i].config(text=questions[self.quizNum][2][i])
+            self.options[i].grid(row=3, column=i)
+        #displays the answer
+        self.answer = questions[self.quizNum][3]
+        #displays the category
+        self.categoryLabel = ttk.Label(self.master, text=questions[self.quizNum][0])
+        self.categoryLabel.grid(row=0, column=0, columnspan=4)
 
     def buttons(self):
         #button to submit the answer
-        self.submit = ttk.Button(self, text="Submit", command=self.checkAnswer)
+        self.submit = ttk.Button(self.master, text="Submit", command=self.checkAnswer)
         self.submit.grid(row=5, column=0)
         #button to end quiz
-        self.quit = ttk.Button(self, text="Quit", command=self.quitQuiz)
+        self.quit = ttk.Button(self.master, text="Quit", command=self.quitQuiz)
         self.quit.grid(row=5, column=1)
 app = LoginScreen(root)
 root.mainloop()
