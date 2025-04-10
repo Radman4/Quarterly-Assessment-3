@@ -50,3 +50,4 @@ cursor.execute('''INSERT INTO QuizBowlDB
                         ("Database Management","WestAir has 10 planes and 5 pilots. Each pilot can fly one or more planes.Each plane can only fly with one pilot. what type of relationship is this?",
                          "A. One to Many, B. Many to None, C. One & only One, D. Many to Many", "A"))
 conn.commit()
+conn.close()

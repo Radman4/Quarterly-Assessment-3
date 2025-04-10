@@ -47,10 +47,12 @@ class LoginScreen:
         quiz_window = Toplevel(root)
         quiz_window.title("Quiz Bowl")
         quizStart(quiz_window)
+#login screen should be finished. moving onto admin screen.
+
 class AdminScreen:
     def __init__(self, master):
         #frame for the admin screen
-        self.adminFrame = ttk.Frame(self, height=200, width=300)
+        self.adminFrame = ttk.Frame(master, height=200, width=300)
         self.adminFrame.pack()
         #entry for the category
         self.label2 = ttk.Label(self.adminFrame, text="Category:")
@@ -88,89 +90,80 @@ class AdminScreen:
                          (self.category.get(),self.question.get(), self.options.get(), self.answer.get()))
         conn.commit()
         messagebox.showinfo("Submit", "Question Submitted!")
+#admin screen should be finished. moving onto quiz screen.
 class quizStart:
     def __init__ (self, master):
         self.master = master
+        self.master.title("Quiz Bowl")
         self.master.geometry("300x200")
+        #connect to the database
+        conn = sqlite3.connect('QuizBowlDB.db')
+        cursor = conn.cursor()
+        #get the question from the database
+        cursor.execute('''SELECT Category, Question, Options, Answer FROM QuizBowlDB''',)
+        questions = cursor.fetchall()
+
+        #labels for the quiz
+        self.categoryLabel = ttk.Label(self.master, text="Category:")
+        self.categoryLabel.grid(row=0, column=0, columnspan=4)
+        self.questionLabel = ttk.Label(self.master, text="Question:")
+        self.questionLabel.grid(row=1, column=0, columnspan=4)
+        self.optionsLabel = ttk.Label(self.master, text="Options:")
+        self.optionsLabel.grid(row=2, column=0, columnspan=4)
+        #text box for user input
+        self.answerLabel = ttk.Entry(self.master, text="Answer:")
+        self.answerLabel.grid(row=3, column=0, columnspan=4)
+        #button to submit the answer
+        self.submit = ttk.Button(self.master, text="Submit", command=self.nextQuestion)
+        self.submit.grid(row=4, column=0)
+        self.submit.bind('<button1>', self.nextQuestion)
+
+
+
         #begins quiz questions at 0
         self.quizNum = 0
         #number of correct answers
         self.correct = 0
         #numer of questions
         self.numQuestions = 0
-        #display buttons
-        self.options=self.radioButtons()
-        self.buttons()
-        self.quizOptions()
         #integer for the question choice
         self.questionCheck = ttk.IntVar()
         self.questions = []
 
-    def radioButtons(self):
-        button = []
-        for b in range(4):
-            button.append(ttk.Radiobutton(self.master, text="", variable=self.questionCheck, value=b))
-            button[b].grid(row=3, column=b)
-        return button
-
-    def quizOptions(self):
-        #connect to the database
-        conn = sqlite3.connect('QuizBowlDB.db')
-        cursor = conn.cursor()
-        #get the question from the database
-        cursor.execute('''SELECT Category, Question, Options, Answer FROM QuizBowlDB''',)
-        conn.commit()
-
-
-
-   
-    #check to see if question is correct
-    def questionCheck(self, quizNum):
-        if self.questionCheck.get() == [quizNum]:
-            return True
-    
-    def checkAnswer(self):
-        #check to see if the answer is correct
-        if self.answer(self.quizNum):
-            messagebox.showinfo("Correct", "Correct!")
-            self.correct += 1
+    def displayQuestion(self):
+        if self.currentIndex < len(self.questions):
+            category, question, options, answer = self.questions[self.currentIndex]
+            self.questionLabel.config(text=f"Question: {question}")
+            self.categoryLabel.config(text=f"Category: {category}")
+            self.optionsLabel.config(text=f"Options: {options}")
+            self.answerLabel.config(text=f"Answer: {answer}")
+            #clear for new input
+            self.answerLabel.delete(0, END)
         else:
-            messagebox.showinfo("Incorrect", "Incorrect!")
-        #move on to the next question
-        self.quizNum += 1
-        #ends quiz if all questions are answered
-        if self.quizNum==len(questions):
-            messagebox.showinfo("Quiz Complete", f"You got {self.correct} out of {len(questions)} correct!")
+            messagebox.showinfo("Quiz Complete", f"You got {self.correct} out of {len(self.questions)} correct!")
             self.quitQuiz()
+
+    def nextQuestion(self):   
+        #check if answer is correct
+        currentAnswer = self.questions[self.currentIndex][3]
+        userAnswer = self.answerLabel.get().strip()
+        if userAnswer == currentAnswer:
+            self.correct += 1
+            messagebox.showinfo("Correct", "Correct!")
         else:
-            self.quizQuestion()
-            self.quizOptions()
+            messagebox.showerror("Incorrect", f"Incorrect! The correct answer is {currentAnswer}.")
+        #update GUI
+        self.currentIndex += 1
+        self.displayQuestion()
+
+
+
 
     def quitQuiz(self):
         #closes the quiz window
         self.master.destroy()
         root.deiconify()
     
-    def quizQuestion(self):
-        #displays the question
-        self.questionLabel = ttk.Label(self.master, text=questions[self.quizNum][1])
-        self.questionLabel.grid(row=1, column=0, columnspan=4)
-        #displays the options
-        for i in range(4):
-            self.options[i].config(text=questions[self.quizNum][2][i])
-            self.options[i].grid(row=3, column=i)
-        #displays the answer
-        self.answer = questions[self.quizNum][3]
-        #displays the category
-        self.categoryLabel = ttk.Label(self.master, text=questions[self.quizNum][0])
-        self.categoryLabel.grid(row=0, column=0, columnspan=4)
 
-    def buttons(self):
-        #button to submit the answer
-        self.submit = ttk.Button(self.master, text="Submit", command=self.checkAnswer)
-        self.submit.grid(row=5, column=0)
-        #button to end quiz
-        self.quit = ttk.Button(self.master, text="Quit", command=self.quitQuiz)
-        self.quit.grid(row=5, column=1)
 app = LoginScreen(root)
 root.mainloop()
