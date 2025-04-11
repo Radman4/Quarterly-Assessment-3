@@ -11,7 +11,7 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS QuizBowlDB (
     OptionD TEXT NOT NULL,
     Answer TEXT NOT NULL
 )''')
-# Admin username : CornGuy password: f40355
+# Admin password: f40355
 
 # Law 2810 Questions
 cursor.execute('''INSERT INTO QuizBowlDB 
@@ -41,6 +41,46 @@ cursor.execute('''INSERT INTO QuizBowlDB
                        (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
                         ("Finance","True or False: The unsystematic risk component of the total portfolio risk can be reduced by adding negatively correlated stocks to the portfolio.",
                          "1. True", "2. False", "3. Null", "4. Null", "1. True"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Finance","Short Term Debt is known as (Blank) on the balance sheet.",
+                         "1. Current Liabilities", "2. Accounts Payable", "3. Notes Payable", "4. Null", "3. Notes  Payable"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Finance","what type of bond may be exchanged for common stock of the firm, at the holder’s option?",
+                         "1. Convertible Bond", "2. Changeable Bond", "3. Income bond", "4. Putable Bond", "1. Convertible Bond"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Finance","True or False: The Marginal Tax Rate is taxes divided by taxable income.",
+                         "1. True", "2. False", "3. Null", "4. Null", "2. False"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Finance","Which of the five types of ratios gives a idea of how efficiently a company is using its assets?",
+                         "1. Profitability Ratios", "2. Liquidity Ratios", "3. Activity Ratios", "4. Solvency Ratios", "3. Activity Ratios"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Finance"," What is the present value (PV) of $100 due in 3 years, if I/YR = 4%?",
+                         "1. 113.06", "2. 110.84", "3. 115.32", "4. 112.49", "4. 112.49"))   
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Finance","what is the common equity raised by issuing new stock?", 
+                         "1. external equity", "2. extra equity", "3. internal equity", "4. New Equity", "1. external equity"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Finance","dividend per share / price of the stock per share is known as?",
+                         "1. Dividend Yield", "2. Dividend Rate", "3. Dividend Payout", "4. Dividend Growth", "1. Dividend Yield"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Finance","True or False: The cost of debt is the return required by stockholders.",
+                         "1. True", "2. False", "3. Null", "4. Null", "2. False"))
 
 # DS 3860 Questions
 cursor.execute('''INSERT INTO QuizBowlDB
