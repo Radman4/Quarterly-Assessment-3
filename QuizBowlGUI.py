@@ -104,11 +104,11 @@ class quizStart:
         questions = cursor.fetchall()
 
         #labels for the quiz
-        self.categoryLabel = ttk.Label(self.master, text="Category:")
+        self.categoryLabel = ttk.Label(self.master, text=questions[0][0])
         self.categoryLabel.grid(row=0, column=0, columnspan=4)
-        self.questionLabel = ttk.Label(self.master, text="Question:")
+        self.questionLabel = ttk.Label(self.master, text=questions[0][1])
         self.questionLabel.grid(row=1, column=0, columnspan=4)
-        self.optionsLabel = ttk.Label(self.master, text="Options:")
+        self.optionsLabel = ttk.Label(self.master, text=questions[0][2])
         self.optionsLabel.grid(row=2, column=0, columnspan=4)
         #text box for user input
         self.answerLabel = ttk.Entry(self.master, text="Answer:")
@@ -116,10 +116,7 @@ class quizStart:
         #button to submit the answer
         self.submit = ttk.Button(self.master, text="Submit", command=self.nextQuestion)
         self.submit.grid(row=4, column=0)
-        self.submit.bind('<button1>', self.nextQuestion)
-
-
-
+        self.currentIndex = 0
         #begins quiz questions at 0
         self.quizNum = 0
         #number of correct answers
@@ -128,33 +125,37 @@ class quizStart:
         self.numQuestions = 0
         #integer for the question choice
         self.questionCheck = ttk.IntVar()
-        self.questions = []
-
+        self.questions = cursor.fetchall()
+#this is the tricky part. questions need to be linked to the DB.
     def displayQuestion(self):
-        if self.currentIndex < len(self.questions):
-            category, question, options, answer = self.questions[self.currentIndex]
-            self.questionLabel.config(text=f"Question: {question}")
-            self.categoryLabel.config(text=f"Category: {category}")
-            self.optionsLabel.config(text=f"Options: {options}")
-            self.answerLabel.config(text=f"Answer: {answer}")
-            #clear for new input
-            self.answerLabel.delete(0, END)
+        #update the labels with the current question
+        category, question, options, answer = self.questions[self.currentIndex]
+        self.questionLabel.config(text=f"Question: {question}")
+        self.categoryLabel.config(text=f"Category: {category}")
+        self.optionsLabel.config(text=f"Options: {options}")
+        self.answerLabel.config(text=f"Answer: {answer}")
+        #clear for new input
+        self.answerLabel.delete(0, END)
+
+
+    def nextQuestion(self):   
+    #check for more questions
+        if self.currentIndex < len(self.questions) - 1:
+            #check the answer
+            if self.answerLabel.get() == self.questions[self.currentIndex][3]:
+                messagebox.showinfo("Correct", "Correct!")
+                self.correct += 1
+            else:
+                messagebox.showerror("Incorrect", "Incorrect!")
+            #increment the question number
+            self.quizNum += 1
+            #increment the index for the next question
+            self.currentIndex += 1
+            #display the next question
+            self.displayQuestion()
         else:
             messagebox.showinfo("Quiz Complete", f"You got {self.correct} out of {len(self.questions)} correct!")
             self.quitQuiz()
-
-    def nextQuestion(self):   
-        #check if answer is correct
-        currentAnswer = self.questions[self.currentIndex][3]
-        userAnswer = self.answerLabel.get().strip()
-        if userAnswer == currentAnswer:
-            self.correct += 1
-            messagebox.showinfo("Correct", "Correct!")
-        else:
-            messagebox.showerror("Incorrect", f"Incorrect! The correct answer is {currentAnswer}.")
-        #update GUI
-        self.currentIndex += 1
-        self.displayQuestion()
 
 
 
