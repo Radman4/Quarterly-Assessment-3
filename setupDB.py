@@ -97,8 +97,8 @@ cursor.execute('''INSERT INTO QuizBowlDB
 
 cursor.execute('''INSERT INTO QuizBowlDB
                        (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
-                        ("Coding","Which of the following would provide the correct syntax for finding a random integer WITHOUT importing?"
-                          "1. random(1,10)", "2. int(random, 1, 10)", "3. print(random, 1, 10)", "4. random.randint(1,10)", "4. random.randint(1,10)"))
+                        ("Coding","Which of the following would provide the correct syntax for finding a random integer WITHOUT importing?",
+                          "1. random()", "2. int(random)", "3. print(random)", "4. random.randint()", "4. random.randint()"))
 
 cursor.execute('''INSERT INTO QuizBowlDB
                        (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
@@ -176,5 +176,47 @@ cursor.execute('''INSERT INTO QuizBowlDB
                        (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
                         ("Database Management","WestAir has 10 planes and 5 pilots. Each pilot can fly one or more planes.Each plane can only fly with one pilot. what type of relationship is this?",
                          "1. One to Many", "2. Many to None", "3. One & only One", "4. Many to Many", "4 Many to Many"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Database Management","what is it called when we knowingly violate a rule of normalization to avoid problems in a table?",
+                         "1. Ultra Normal Form", "2. Best Normal Form", "3. Perfect Normal Form", "4. Supreme Normal Form", "2. Best Normal Form"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Database Management","Box A has elements A,B,D, and Box B has elements A,C,D. What is the result of Box A Intersection Box B?",
+                         "1. A,D", "2. A,,B,C,D", "3. A,B,D", "4. A,C,D", "1. A,D"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Database Management","What is NOT  a type of data from a database?",
+                         "1. Soruce Data", "2. Meta Data", "3. Grey Data", "4. Overhead Data", "3. Grey Data"))
+
+cursor.execute('''INSERT INTO QuizBowlDB 
+                        (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                          ("Database Management","In a Database about a student profile, which of these could be a candidate key?",
+                           "1. Student ID", "2. Student Name", "3. Both 1 & 2", "4. None of the 0ptions", "3. Both 1 & 2"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Database Management","True or False: Cardinality is the number of rows in one table associated with a single row in another table.",
+                         "1. True", "2. False", "3. Null", "4. Null", "1. True"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Database Management","What type of Relation Algebra lists all of two tables with no duplicates?",
+                         "1. Union", "2. Equijoin", "3. Divison", "4. Intersection", "1. Union"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Database Management","Rob has a viedo console that can play many games. However, Rob can only play one game at a time. what would describe Rob's relationship with playing games?.",
+                         "1. One & simply One", "2. One & just One", "3. One & only One", "4. One and no One else", "3. One & only One"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Database Management","Whenever there is a many to many relationship, what is the rquired entity to make??",
+                         "1. Intersection entity", "2. Middleman entity", "3. Foreman entity", "4. Specalized entity", "1. Intersection entity"))
+
+
 conn.commit()
 conn.close()
