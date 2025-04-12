@@ -70,6 +70,50 @@ cursor.execute('''INSERT INTO QuizBowlDB
                         ("Coding","What does GUI stand for?",
                          "1. Graphical User Interface", "2. General User Interface", "3. Graphical Universal Interface", "4. General Universal Interface", "1. Graphical User Interface"))
 
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Coding","What is the output of the following code: print(round (6.75))",
+                         "1. 6", "2. 7", "3. 6.75", "4. 6.8", "2. 7"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Coding","Which function brings up a interactive assitance menu in Python?",
+                          "1. guide()", "2. assist()", "3. menu()", "4. help()", "4. help()"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Coding","if x = 9, y = 'larry', z = True, what is the output of: Print(x == y)",
+                          "1. False", "2. True", "3. Syntax Error", "4. No defined answer", "1. False"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Coding","True or False: A While loop is a Definite loop, one that has a predetermined ending.",
+                         "1. True", "2. False", "3. Null", "4. Null", "2. False"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Coding","What is the diffrence between a integer and a float?",
+                          "1. Integers are positive numbers, floats are negative numbers", "2. Integers are decimal numbers, floats are whole numbers", "3. Integers are whole numbers, floats are decimal numbers", "4. Integers are negative numbers, floats are positive numbers", "3. Integers are whole numbers, floats are decimal numbers"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Coding","Which of the following would provide the correct syntax for finding a random integer WITHOUT importing?"
+                          "1. random(1,10)", "2. int(random, 1, 10)", "3. print(random, 1, 10)", "4. random.randint(1,10)", "4. random.randint(1,10)"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Coding","What number is the character 'g' in the following phrase? 'I had a good dinner.'",
+                          "1. 4", "2. 9", "3. 6", "4. 5", "2. 9"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Coding","What is used to deliniate a dictonary?",
+                          "1. Brackets ", "2. Parenthesis", "3. Braces", "4. Apostrophe", "3. Braces"))
+
+cursor.execute('''INSERT INTO QuizBowlDB
+                       (Category, prompt, OptionA, OptionB, OptionC, OptionD, Answer) VALUES (?,?,?,?,?,?,?);''' ,
+                        ("Coding","What keyword defines a new Function?",
+                          "1. def", "2. function", "3. new", "4. define", "1. def"))
 
 # Finance 3210 Questions
 cursor.execute('''INSERT INTO QuizBowlDB 
